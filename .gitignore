@@ -1,0 +1,10 @@
+*.docx
+*.zip
+*.pyc
+*.exe
+s.bat
+
+.vscode/
+__pycache__/
+env/
+venv/
