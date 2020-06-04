@@ -34,10 +34,10 @@ class LibParser:
                 self.vocabSunda = sorted(temp, key = lambda x : x.keyLength, reverse = True)
 
     @staticmethod
-    def isReservedWord(word, type = "sunda-indo"):
+    def isReservedWord(word, type):
         if(type == "sunda-indo"):
             return True
-        else:
+        else: # type == "indo-sunda"
             return False
 
 if __name__=='__main__':

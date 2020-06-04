@@ -19,7 +19,7 @@ class Matcher:
     def solver(self, findAll = False):
         # function to find out if the pattern and text is exact
         # and return the boolean and the translation result 
-        return False, ""
+        return False
 
 class BoyerMooreMatcher(Matcher):
     def __init__(self):
@@ -33,9 +33,9 @@ class BoyerMooreMatcher(Matcher):
         return lookback
 
     def findPattern(self, findAll = False):
-        self.resultIdx = []
-        if(self.patLength > self.textLength):
-            return self.resultIdx
+        # self.resultIdx = []
+        if(self.patLength != self.textLength):
+            return False
         lookback = self.initLookbackArray()
         i, j = self.patLength - 1, self.patLength - 1
         while(i < self.textLength):
@@ -58,7 +58,7 @@ class BoyerMooreMatcher(Matcher):
         return self.resultIdx
 
 class KMPMatcher(Matcher):
-    def __init__():
+    def __init__(self):
         super().__init__()
 
     def initKMPBorder(self):
@@ -76,9 +76,9 @@ class KMPMatcher(Matcher):
         return KMPBorder
 
     def findPattern(self, findAll = False):
-        self.resultIdx = []
-        if(self.patLength > self.textLength):
-            return self.resultIdx
+        # self.resultIdx = []
+        if(self.patLength != self.textLength):
+            return False
         KMPBorder = self.initKMPBorder()
         i, j = 0, 0
         while(i < self.textLength):
@@ -102,6 +102,8 @@ class RegexMatcher(Matcher):
         super().__init__()
 
     def findPattern(self, findAll = False):
+        if(self.patLength != self.textLength):
+            return False
         self.resultIdx = re.findall(self.pattern, self.text)
         return self.resultIdx
 
