@@ -1,4 +1,4 @@
-from parser import *
+from libParser import *
 from matcher import *
 import os, sys
 
@@ -26,9 +26,9 @@ class Translator:
             matcher = RegexMatcher()
 
         if(type == "sunda-indo"):
-            dictionary = self.libparser.vocabIndo
-        else: # type == "indo-sunda"
             dictionary = self.libparser.vocabSunda
+        else: # type == "indo-sunda"
+            dictionary = self.libparser.vocabIndo
         
         i, dictLength = 0, len(dictionary)
         while(i < self.textLength):
@@ -37,27 +37,35 @@ class Translator:
                 self.translation.append(self.text[i])
                 i += 1
             else:
-                j, k, textToValidate, result = 0, 0, "", ""
-                isFound = False
+                textToValidate, result = "", ""
+                j, k, isFound = 0, 0, False
                 while(not isFound and j < dictLength):
-                    k = len(dictionary[j].key)
-                    textToValidate = " ".join(self.text[i : i + k])
-                    isFound =  matcher.setText(textToValidate)\
-                                        .setPattern(dictionary[j].key)\
-                                        .solver()
+                    k = dictionary[j].keyLength
+                    textToValidate = " ".join(self.text[i : min([i + k, self.textLength])])
+                    print(textToValidate +  ' ' + dictionary[j].key + ' ' + str(k))
+                    isFound = matcher.setText(dictionary[j].key)\
+                                        .setPattern(textToValidate)\
+                                        .match()
+                    if(isFound):
+                        print("ada jir")
+                    if(dictionary[j].key == "abu rokok"):
+                        print(textToValidate +  ' ' + dictionary[j].key + ' ' + str(k))
+                        print(isFound)
                     if(not isFound):
                         j += 1
 
                 if(not isFound):
-                    self.translation.append(textToValidate.split(" "))
+                    self.translation.append(self.text[i : min([i + k, self.textLength])])
                     i += 1
                 else:
                     self.translation.append(dictionary[j].data.split(" "))
                     i += k
+
+        print(self.translation)
         return " ".join(self.translation)
 
 if __name__=='__main__':
     t = Translator()
-    a = str(input())
+    a = "nama saya Riyugan"
     t.setText(a).translate("indo-sunda")
 

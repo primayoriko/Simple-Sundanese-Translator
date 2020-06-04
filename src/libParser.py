@@ -1,17 +1,13 @@
 import os
 
-class Entry:
-    def __init__(self, entry):
-        entry = entry.split(' = ')
-        self.key = entry[0]
-        self.data = entry[1]
-        self.keyLength = len(entry[0].split(" "))
-    
-    # @staticmethod
-    # def getComparatorKey(this):
-    #     return len(this.key)
-
 class LibParser:
+    class Entry:
+        def __init__(self, entry):
+            entry = entry.split(' = ')
+            self.key = entry[0]
+            self.data = entry[1]
+            self.keyLength = len(entry[0].split(" "))
+
     def __init__(self, indo="../data/indonesia.txt", sunda="../data/sunda.txt"):
         if not os.path.isfile(indo) or not os.path.isfile(indo):
             print('File does not exist.')
@@ -22,7 +18,7 @@ class LibParser:
                 self.reservedIndo = []
                 temp = []
                 for i in self.vocabIndo:
-                    temp.append(Entry(i))
+                    temp.append(LibParser.Entry(i))
                 self.vocabIndo = sorted(temp, key = lambda x : x.keyLength, reverse = True)
 
             with open(sunda) as s:
@@ -30,7 +26,7 @@ class LibParser:
                 self.reservedSunda = ["teh"]
                 temp = []
                 for i in self.vocabSunda:
-                    temp.append(Entry(i))
+                    temp.append(LibParser.Entry(i))
                 self.vocabSunda = sorted(temp, key = lambda x : x.keyLength, reverse = True)
 
     @staticmethod

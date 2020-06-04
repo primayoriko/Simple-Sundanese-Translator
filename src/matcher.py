@@ -7,7 +7,7 @@ class Matcher:
         self.textLength, self.patLength = len(self.text), len(self.pattern)
 
     def setText(self, text):
-        self.text = text.lower()
+        self.text = text
         self.textLength = len(text)
         return self
 
@@ -16,7 +16,7 @@ class Matcher:
         self.patLength = len(pattern)
         return self
 
-    def solver(self, findAll = False):
+    def matcher(self):
         # function to find out if the pattern and text is exact
         # and return the boolean and the translation result 
         return False
@@ -32,8 +32,7 @@ class BoyerMooreMatcher(Matcher):
             lookback[ord(self.pattern[i])] = i
         return lookback
 
-    def findPattern(self, findAll = False):
-        # self.resultIdx = []
+    def match(self):
         if(self.patLength != self.textLength):
             return False
         lookback = self.initLookbackArray()
@@ -41,10 +40,8 @@ class BoyerMooreMatcher(Matcher):
         while(i < self.textLength):
             if(self.pattern[j] == self.text[i]):
                 if(j == 0):
-                    self.resultIdx.append(i)
-                    if(not findAll):
-                        break
-                    i, j = i + self.patLength, self.patLength - 1
+                    return True
+                    # i, j = i + self.patLength, self.patLength - 1
                 else:
                     i, j = i - 1, j - 1
             else:
@@ -55,28 +52,30 @@ class BoyerMooreMatcher(Matcher):
                 #     j = lookback_val
                 # else:
                 #     i, j = i + self.patLength, self.patLength - 1
-        return self.resultIdx
+        return False
 
 class KMPMatcher(Matcher):
     def __init__(self):
         super().__init__()
 
     def initKMPBorder(self):
-        KMPBorder = [-1] * self.patLength
+        KMPBorder = [0] * self.patLength
         KMPBorder[0] = 0
         i, j = 1, 0
         while(i < self.patLength):
+            # print(str(i)+' '+str(j)+' '+self.pattern[i]+self.pattern[j])
             if(self.pattern[i] == self.pattern[j]):
-                KMPBorder[i] = j + 1
+                j += 1
+                KMPBorder[i] = j
+                i += 1
             elif(j > 0):
                 j = KMPBorder[j - 1]
             else:
-                KMPBorder[i]= 0
+                KMPBorder[i] = 0
                 i += 1
         return KMPBorder
 
-    def findPattern(self, findAll = False):
-        # self.resultIdx = []
+    def match(self):
         if(self.patLength != self.textLength):
             return False
         KMPBorder = self.initKMPBorder()
@@ -84,10 +83,8 @@ class KMPMatcher(Matcher):
         while(i < self.textLength):
             if(self.pattern[j] == self.text[i]):
                 if(j == self.patLength - 1):
-                    self.resultIdx.append(i - self.patLength + 1)
-                    if(not findAll):
-                        break
-                    i, j = i + 1, KMPBorder[j] 
+                    return True
+                    # i, j = i + 1, KMPBorder[j] 
                 else:
                     i, j = i + 1, j + 1
             else:
@@ -95,34 +92,37 @@ class KMPMatcher(Matcher):
                     j = KMPBorder[j - 1]
                 else:
                     i += 1
-        return self.resultIdx
+        return False
 
 class RegexMatcher(Matcher):
     def __init__(self):
         super().__init__()
 
-    def findPattern(self, findAll = False):
-        if(self.patLength != self.textLength):
-            return False
-        self.resultIdx = re.findall(self.pattern, self.text)
-        return self.resultIdx
+    def match(self):
+        # if(self.patLength != self.textLength):
+        #     return False
+        return len(re.findall(self.pattern, self.text)) == 1
 
 if __name__ == '__main__':
-    pattern = "abc"
-    text = "reabcasdsabcasdaabcb"
-    matcher = BoyerMooreMatcher(text = text, pattern=pattern)
-    matcher.solver()
-    # print(len)
-    print(matcher.resultIdx)
-    # print(matcher.initLookbackArray())
-    matcher.printSolution()
-    matcher2 = KMPMatcher(text = text, pattern=pattern)
-    matcher2.solver()
-    # print(len)
-    print(matcher2.resultIdx)
-    matcher3 = RegexMatcher(text = text, pattern=pattern)
-    matcher3.solver()
-    # print(len)
-    print(matcher3.resultIdx)
-    pass
+    pattern = "nama saya Riyugan"
+    text = "berasal dari mana"
 
+    kmp = KMPMatcher().setPattern(pattern).setText(text)
+    # print(kmp.text)
+    # print(kmp.pattern)
+    if(kmp.match()):
+        print("KMP")
+    else:
+        print("wtf_KMP")
+
+    bm = BoyerMooreMatcher().setPattern(pattern).setText(text)
+    if(bm.match()):
+        print("BM")
+    else:
+        print("wtf_BM")
+
+    reg = RegexMatcher().setPattern(pattern).setText(text)
+    if(reg.match()):
+        print("Reg")
+    else:
+        print("wtf_Reg")
