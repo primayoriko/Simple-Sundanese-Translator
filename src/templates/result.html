@@ -1,0 +1,71 @@
+<!doctype html>
+<title>{% block title %} Translator Indonesia & Sunda {% endblock %} </title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<main class="mainPage">
+    <header>
+        <h2>Translator</h2>
+        <h1>Indonesia & Sunda</h1>
+    </header>
+    <form method="POST" action="/result.html" enctype="multipart/form-data">
+        <table>
+            <tbody>
+                <tr>
+                    <td class="leftColumn"> Text: </td>
+                    <td class="rightColumn"> 
+                        <input type="text" name="text"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftColumn"> Mode: </td>
+                    <td class="rightColumn"> 
+                        <input type="radio" name="mode" value="indo-sunda"/>
+                        Indonesia to Sunda
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftColumn"> </td>
+                    <td class="rightColumn"> 
+                        <input type="radio" name="mode" value="sunda-indo"/>
+                        Sunda to Indonesia
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftColumn"> Method: </td>
+                    <td class="rightColumn">
+                        <select name="method">
+                            <option value="kmp"> Knutt-Morris-Pratt Algorithm </option>
+                            <option value="bm"> Boyer-Moore Algorithm </option>
+                            <option value="regex"> Regular Expression </option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <button action="submit"> Translate! </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</main>
+
+<!-- <!doctype html>
+<title>{% block title %} Translator - Result {% endblock %} </title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<main class="resultPage">
+    <header>
+        <h2>Translator</h2>
+        <h1>Indonesia & Sunda</h1>
+        <h2> - Result Page </h2>
+    </header>
+    <body>
+        <div>
+            
+        </div>
+        <div>
+
+        </div>
+    </body>
+</main> -->

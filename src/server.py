@@ -1,44 +1,21 @@
-if __name__=='__main__':
-    specialChar = ['.', ',', '!', '?',')', '(',\
-                    "'", "\"", '{', '}', '[', ']', '@', '&']
-    text = "!halo... & nama ...saya bayu!"
-    splittedText = text.split(" ")
+from translator import *
+from time import time
+from flask import Flask, flash, g, redirect, render_template, request, session, url_for
+import sys, re
 
-    i = 0
-    while(i < len(splittedText)):
-        temp = splittedText[i]
-        wordLength = len(temp)
-        j, needSplit = 0, False
-        while(j < wordLength and temp[j] in specialChar):
-            j, needSplit = j + 1, True
-        if(j < wordLength and needSplit):
-            del splittedText[i]
-            splittedText.insert(i, temp[0:j])
-            splittedText.insert(i + 1, temp[j:wordLength])
-            i += 2
-        else:
-            i += 1
-        # if(wordLength > 1 and temp[0] in specialChar):
-        #     del splittedText[i]
-        #     splittedText.insert(i, temp[0])
-        #     splittedText.insert(i + 1, temp[1:wordLength])
-        #     i += 2
-        # else:
-        #     i += 1
+app = Flask(__name__)
 
-    i = 0
-    while(i < len(splittedText)):
-        temp = splittedText[i]
-        wordLength = len(temp)
-        j, needSplit = wordLength - 1, False
-        while(j >= 0 and temp[j] in specialChar):
-            j, needSplit = j - 1, True
-        if(j >= 0 and needSplit):
-            del splittedText[i]
-            splittedText.insert(i, temp[0:j + 1])
-            splittedText.insert(i + 1, temp[j + 1:wordLength])
-            i += 2
-        else:
-            i += 1
+@app.route('/', methods=['GET', 'POST'])
+def mainHandler():
+    if request.method == "GET":
+        return render_template('main.html')
 
-    print(splittedText)
+    elif request.method == "POST":
+        mode = request.form["mode"]
+        method = request.form["method"]
+        text = request.form["text"]
+
+@app.route('/result', methods=['POST'])
+def showResult():
+    mode = request
+    return render_template('result.html')

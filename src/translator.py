@@ -18,12 +18,12 @@ class Translator:
     def getTranslation(self):
         return " ".join(self.translation)
 
-    def translate(self, type, method=1):
-        if(method == 1):
+    def translate(self, type, method="kmp"):
+        if(method == "kmp"):
             matcher = KMPMatcher()
-        elif(method == 2):
+        elif(method == "bm"):
             matcher = BoyerMooreMatcher()
-        else: # method == 3
+        else: # method == "regex"
             matcher = RegexMatcher()
 
         if(type == "sunda-indo"):
@@ -67,6 +67,6 @@ if __name__=='__main__':
     t.setText(a)
     print(t.text)
     print(t.textLength)
-    t.setText(a).translate("sunda-indo")
+    print(t.setText(a).translate("sunda-indo"))
 
 
