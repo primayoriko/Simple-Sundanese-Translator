@@ -52,17 +52,12 @@ class BoyerMooreMatcher(Matcher):
             if(self.pattern[j] == self.text[i]):
                 if(j == 0):
                     return True
-                    # i, j = i + self.patLength, self.patLength - 1
                 else:
                     i, j = i - 1, j - 1
             else:
                 lookback_val = lookback[ord(self.text[i])]
                 i = i + self.patLength - min(j, 1 + lookback_val)
                 j = self.patLength - 1
-                # if(lookback_val < j and lookback_val != -1):
-                #     j = lookback_val
-                # else:
-                #     i, j = i + self.patLength, self.patLength - 1
         return False
 
 class KMPMatcher(Matcher):
@@ -118,8 +113,6 @@ if __name__ == '__main__':
     text = "?"
 
     kmp = KMPMatcher().setPattern(pattern).setText(text)
-    # print(kmp.text)
-    # print(kmp.pattern)
     if(kmp.match()):
         print("KMP")
     else:

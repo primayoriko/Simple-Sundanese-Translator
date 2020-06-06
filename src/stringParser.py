@@ -4,9 +4,6 @@ import os
 class inputParser:
     @staticmethod
     def prefixSeparator(splittedText):
-        # if(specialChar is None):
-        #     specialChar = ['.', ',', '!', '?',')', '(', "'", "\"",\
-        #                     '{', '}', '[', ']', '@', '&']
         i = 0
         while(i < len(splittedText)):
             temp = splittedText[i]
@@ -26,9 +23,8 @@ class inputParser:
     
     @staticmethod
     def suffixSeparator(splittedText):
-        # if(specialChar is None):
-        #     specialChar = ['.', ',', '!', '?',')', '(', "'", "\"",\
-        #                     '{', '}', '[', ']', '@', '&']
+        # specialChar = ['.', ',', '!', '?',')', '(', "'", "\"",\
+        #                 '{', '}', '[', ']', '@', '&']
         i = 0
         while(i < len(splittedText)):
             temp = splittedText[i]
@@ -74,7 +70,7 @@ class LibParser:
                 removedWordsSunda = ["teh"], removedWordsIndo = []):
         if not os.path.isfile(indo) or not os.path.isfile(indo):
             print('File does not exist.')
-            # exit(1)
+            exit(1)
         else:
             with open(indo) as i:
                 self.vocabIndo = i.read().splitlines()
@@ -96,5 +92,4 @@ if __name__=='__main__':
     p = LibParser()
     for i in p.vocabIndo:
         print(i.keyLength)
-        # print(i.data)
 

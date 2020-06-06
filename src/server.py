@@ -7,6 +7,8 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def mainHandler():
+    # print('getcwd:      ', os.getcwd())
+    # print('__file__:    ', __file__)
     if request.method == "GET":
         return render_template('main.html', initInput="", result="")
 
@@ -16,8 +18,5 @@ def mainHandler():
         method = request.form["method"]
         text = request.form["text"]
         tehOpt = request.form.get("tehOpt")
-        # print(mode + ' ' + method + ' ' + text)
-        # print('getcwd:      ', os.getcwd())
-        # print('__file__:    ', __file__)
         return render_template('main.html', initInput=text, result=\
                 translator.setText(text).translate(mode, method, tehOpt=="yes"))
