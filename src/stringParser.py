@@ -54,7 +54,7 @@ class LibParser:
     def __init__(self, indo="../data/indonesia.txt", sunda="../data/sunda.txt"):
         if not os.path.isfile(indo) or not os.path.isfile(indo):
             print('File does not exist.')
-            exit(1)
+            # exit(1)
         else:
             with open(indo) as i:
                 self.vocabIndo = i.read().splitlines()

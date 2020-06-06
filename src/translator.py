@@ -7,7 +7,6 @@ class Translator:
         self.libparser = LibParser(indo = indoDict, sunda = sundaDict)
         self.text = []
         self.translation = []
-        # self.matcher = Matcher()
 
     def setText(self, text):
         self.text = inputParser.prefixSeparator(text.split(" "))
@@ -62,7 +61,7 @@ class Translator:
 
 if __name__=='__main__':
     t = Translator()
-    a = "nami rai anjeun teh saha"
+    a = "nami abdi Riyugan"
     # t.setText(a).translate("indo-sunda")
     t.setText(a)
     print(t.text)
