@@ -18,13 +18,7 @@ class Translator:
         return inputParser.decode(self.translation)
 
     def translate(self, type, method="kmp"):
-        if(method == "kmp"):
-            matcher = KMPMatcher()
-        elif(method == "bm"):
-            matcher = BoyerMooreMatcher()
-        else: # method == "regex"
-            matcher = RegexMatcher()
-
+        matcher = MatcherBuilder.build(method)
         if(type == "sunda-indo"):
             dictionary = self.libparser.vocabSunda
         else: # type == "indo-sunda"
@@ -33,7 +27,7 @@ class Translator:
         i, dictLength = 0, len(dictionary)
         while(i < self.textLength):
             if(type == "sunda-indo" and \
-                self.libparser.isRemovedWord(self.text[i], type)):
+                self.libparser.isRemovedWord(self.text[i], type, method)):
                 i += 1
             else:
                 textToValidate, result = "", ""
@@ -42,8 +36,8 @@ class Translator:
                     k = dictionary[j].keyLength
                     textToValidate = " ".join(self.text[i : min([i + k, self.textLength])])
                     # print(textToValidate +  ' ' + dictionary[j].key + ' ' + str(k))
-                    isFound = matcher.setText(dictionary[j].key)\
-                                        .setPattern(textToValidate)\
+                    isFound = matcher.setText(textToValidate)\
+                                        .setPattern(dictionary[j].key)\
                                         .match()
                     if(not isFound):
                         j += 1
@@ -56,7 +50,6 @@ class Translator:
                     i += k
                 for word in temp:
                     self.translation.append(word)
-        # print(self.translation)
         # if(type == "indo-sunda"):
         #     for
         return inputParser.decode(self.translation)

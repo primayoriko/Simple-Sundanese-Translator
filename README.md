@@ -1,24 +1,46 @@
 # Simple Sundanese Translator
-Simple Sundanese to Bahasa Indonesia translator using Pattern Matching
+Simple Sundanese to Bahasa Indonesia translator using Pattern Matching (only implemented by per-word matching) . Back-end created with Flask and Python, and front-end using vanilla HTML and CSS that rendered with jinja2.
 
-## Latar Belakang
-Pada suatu hari, ada mahasiswa bernama Riyugan yang baru pindah ke Bandung. Pada awalnya dia mengalami kesulitan untuk bersosialisai dengan lingkungan sekitar karena orang-orang di lingkungannya yang baru hanya berbicara dalam bahasa Sunda. Beruntungnya Riyugan punya teman dari kampung halamannya, yaitu Anda, untuk diminta membuat penerjemah sederhana dari Bahasa Sunda ke Bahasa Indonesia begitu pula sebaliknya untuk memudahkan dirinya bersosialisasi dengan lingkungan barunya di Bandung.
+## Requirements
+-----------
+1. *Python 3*, here I'm using python 3.7
+2. Recommended using *Windows*, as I'm using it. But, you can try in linux, such as Ubuntu Linux
+3. Latest Web Browser, recommended using *Google Chrome* or *Mozilla Firefox* as I've tested this web apps work on them.
+4. *Virtualenv* (a python lib, for creating virtual/special environment to a specific project)
+5. Additional python lib/framework: *flask*, *python-dotenv* (of course all of it installed in venv)
+   
+You can install virtualenv by executing **install_venv.bat**, and when inside virtuelenv, you can executing **install_library.bat** to install additional python library needed for this web application.
 
-## Spesifikasi
-Buatlah dalam bahasa pemrograman Python, program penerjemah sederhana yang memanfaatkan algoritma String Matching (Knuth-Morris-Pratt(KMP), Boyer-Moore(BM), dan Regex), dengan spesifikasi sebagai berikut.
-1. Program mampu membaca kata atau kalimat yang akan diterjemahkan.
-2. Program akan membaca file eksternal yang berisi vocabulary Bahasa Sunda - Bahasa Indonesia (file sudah disiapkan dalam repository).
-3. Program akan melakukan penerjemahan secara perkata (untuk contoh akan ditampilkan di bawah).
-4. Program dapat memilih mau "Bahasa Sunda ke Bahasa Indonesia" atau "Bahasa Indonesia ke Bahasa Sunda".
-5. Pada saat penerjemahan "Bahasa Sunda ke Bahasa Indonesia", program mampu mengenali kata yang tidak memiliki arti (stopwords), seperti "teh" sehingga dapat diabaikan saat penerjemahan.
-6. Pada saat penerjemahan "Bahasa Indonesia ke Bahasa Sunda", program mampu menambahkan kata untuk penekanan kalimat, seperti "teh".
-7. Program dapat menampilkan hasil terjemahan.
-8. Program dibuat secara individu.
-9. Peserta akan mendapatkan nilai bonus jika mengimplementasikan dalam web (untuk bahasanya dibebaskan).
-10. Dilarang meng-copy source code program yang sudah jadi, untuk source code algoritma string matching dipersilahkan menggunakan source code dari tugas yang sudah pernah dibuat (Tugas Kecil 4).
-11. Batas pengerjaannya adalah 6 Juni 2020.
+## How to Run
+------------
+1. Make sure you've install all requirements above. If you don't, please follow step that I've mentioned above (for some requirements) before you proceed to the next step.
+2. open shell (cmd/powershell) and change directory to **env/Script**.
+3. Execute
+    
+            activate
+    to run virtualenv.
+4. Execute
+      
+        flask run
+   to run the server.
 
-## Contoh Kasus Uji
+For simplicity you can executing **start_env.bat** instead of step 2-3 to running virtualenv for simplicity.
+
+## How to Use
+--------
+1. After you run the server by *flask run*, you can navigate to 
+   
+        http://127.0.0.1:5000/
+   or
+
+        localhost:5000/
+
+   with your web browser to run this web apps. 
+2. Choose the mode (indo to sunda / sunda to indo), the algorithm that should be used, input the text that want to be translated, and then click **Translate** button.
+3. The translation must appear after awhile.
+4. Enjoy.
+
+## Sample Input and Output of the Translation
 ```
 Sunda - Indonesia
 Sunda : nami abdi Riyugan
@@ -55,8 +77,8 @@ Indonesia : saya tidak bisa bahasa Sunda
 Sunda : abdi henteu tiasa bahasa Sunda
 ```
 
-## Pengumpulan
-1. Lakukan merge request dari hasil fork kalian ke repository ini
-2. Untuk demonya, silahkan membuat video demo penggunaan programnya, diupload ke YouTube dan sertakan linknya pada Readme.
+## Known Bugs or Problems
+1. The Indentation in textarea (input/ output text section) after translation would give *tab* before the translation, but the translation result should be correct.
 
-### **_(Ubah file README ini pada repository hasil fork kalian)_**
+## Documentation
+You can access how to use this program in (this youtube)[] link.

@@ -92,11 +92,17 @@ class LibParser:
                     temp.append(LibParser.Entry(i))
                 self.vocabSunda = sorted(temp, key = lambda x : x.keyLength, reverse = True)
 
-    def isRemovedWord(self, word, type):
+    def isRemovedWord(self, word, type, method):
+        matcher = MatcherBuilder.build(method).setText(word)
         if(type == "sunda-indo"):
-            return word in self.removedWordsSunda
+            removedWords = self.removedWordsSunda
         else: # type == "indo-sunda"
-            return word in self.removedWordsIndo
+            removedWords = self.removedWordsIndo
+            
+        for vocab in removedWords:
+            if(matcher.setPattern(vocab).match()):
+                return True
+        return False
 
 if __name__=='__main__':
     p = LibParser()

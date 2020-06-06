@@ -1,5 +1,16 @@
 import re, sys
 
+class MatcherBuilder:
+    @staticmethod
+    def build(method="kmp"):
+        if(method == "kmp"):
+            matcher = KMPMatcher()
+        elif(method == "bm"):
+            matcher = BoyerMooreMatcher()
+        else: # method == "regex"
+            matcher = RegexMatcher()
+        return matcher
+
 class Matcher:
     # def __init__(self, text = "", pattern = "-"):
     def __init__(self):
@@ -7,16 +18,16 @@ class Matcher:
         self.textLength, self.patLength = len(self.text), len(self.pattern)
 
     def setText(self, text):
-        self.text = text
+        self.text = text.lower()
         self.textLength = len(text)
         return self
 
     def setPattern(self, pattern):
-        self.pattern = pattern
+        self.pattern = pattern.lower()
         self.patLength = len(pattern)
         return self
 
-    def matcher(self):
+    def match(self):
         # function to find out if the pattern and text is exact
         # and return the boolean and the translation result 
         return False
@@ -63,7 +74,6 @@ class KMPMatcher(Matcher):
         KMPBorder[0] = 0
         i, j = 1, 0
         while(i < self.patLength):
-            # print(str(i)+' '+str(j)+' '+self.pattern[i]+self.pattern[j])
             if(self.pattern[i] == self.pattern[j]):
                 j += 1
                 KMPBorder[i] = j
@@ -101,11 +111,11 @@ class RegexMatcher(Matcher):
     def match(self):
         # if(self.patLength != self.textLength):
         #     return False
-        return len(re.findall(self.pattern, self.text)) == 1
+        return True if re.search("^" + self.pattern + "$", self.text) else False
 
 if __name__ == '__main__':
-    pattern = "nama saya Riyugan"
-    text = "berasal dari mana"
+    pattern = "he es"
+    text = "?"
 
     kmp = KMPMatcher().setPattern(pattern).setText(text)
     # print(kmp.text)
