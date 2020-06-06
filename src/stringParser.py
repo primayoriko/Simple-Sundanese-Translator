@@ -1,3 +1,4 @@
+from matcher import *
 import os
 
 class inputParser:
@@ -69,14 +70,15 @@ class LibParser:
             self.data = entry[1]
             self.keyLength = len(entry[0].split(" "))
 
-    def __init__(self, indo="../data/indonesia.txt", sunda="../data/sunda.txt"):
+    def __init__(self, indo="../data/indonesia.txt", sunda="../data/sunda.txt",\
+                removedWordsSunda = ["teh"], removedWordsIndo = []):
         if not os.path.isfile(indo) or not os.path.isfile(indo):
             print('File does not exist.')
             # exit(1)
         else:
             with open(indo) as i:
                 self.vocabIndo = i.read().splitlines()
-                self.specialIndo = []
+                self.removedWordsIndo = removedWordsIndo
                 temp = []
                 for i in self.vocabIndo:
                     temp.append(LibParser.Entry(i))
@@ -84,18 +86,17 @@ class LibParser:
 
             with open(sunda) as s:
                 self.vocabSunda = s.read().splitlines()
-                self.specialSunda = ["teh"]
+                self.removedWordsSunda = removedWordsSunda
                 temp = []
                 for i in self.vocabSunda:
                     temp.append(LibParser.Entry(i))
                 self.vocabSunda = sorted(temp, key = lambda x : x.keyLength, reverse = True)
 
-    # @staticmethod
-    def isSpecialWord(self, word, type):
+    def isRemovedWord(self, word, type):
         if(type == "sunda-indo"):
-            return word in self.specialSunda
+            return word in self.removedWordsSunda
         else: # type == "indo-sunda"
-            return word in self.specialIndo
+            return word in self.removedWordsIndo
 
 if __name__=='__main__':
     p = LibParser()

@@ -33,7 +33,7 @@ class Translator:
         i, dictLength = 0, len(dictionary)
         while(i < self.textLength):
             if(type == "sunda-indo" and \
-                self.libparser.isSpecialWord(self.text[i], type)):
+                self.libparser.isRemovedWord(self.text[i], type)):
                 i += 1
             else:
                 textToValidate, result = "", ""
@@ -57,6 +57,8 @@ class Translator:
                 for word in temp:
                     self.translation.append(word)
         # print(self.translation)
+        # if(type == "indo-sunda"):
+        #     for
         return inputParser.decode(self.translation)
 
 if __name__=='__main__':

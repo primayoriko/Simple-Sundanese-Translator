@@ -28,19 +28,21 @@
                     </div>
                     <button class="optComponent"> Translate </button>
                     <div class="optComponent">
-                        <input type="checkbox" name="tehOpt" />
+                        <input type="checkbox" name="tehOpt" value="yes" />
                         Adding "teh" word in "Indonesia to Sunda" mode (Beta)
                     </div>
                 </div>
                 <div class="inputText">
                     <textarea class="text" type="text" name="text">
+                        {{ initInput }}
                     </textarea>
                 </div>
             </div>
-            <div class="spacer">
-            </div>
+            <div class="spacer"></div>
             <div class="resultPart">
-                <label>{{ result }}</label>
+                <textarea class="text" type="text" name="text" readonly>
+                    {{ result }}
+                </textarea>
             </div>
         </form>
     </main>
