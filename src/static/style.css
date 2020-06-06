@@ -59,6 +59,8 @@
     height: auto;
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
+    align-content: flex-start;
 }
 
 .optionMenu {
@@ -80,14 +82,14 @@
     flex-direction: row;
     height: auto;
     min-height: 200px;
+
 }
 
 .text {
     width: 100%;
+    vertical-align: text-top;
     /* height: 200px; */
 }
-
-
 
 Button {
     background-color: black;
