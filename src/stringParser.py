@@ -2,46 +2,64 @@ import os
 
 class inputParser:
     @staticmethod
-    def prefixSeparator(splittedText, specialChar=None):
-        if(specialChar is None):
-            specialChar = ['.', ',', '!', '?',')', '(', "'", "\"",\
-                            '{', '}', '[', ']', '@', '&']
+    def prefixSeparator(splittedText):
+        # if(specialChar is None):
+        #     specialChar = ['.', ',', '!', '?',')', '(', "'", "\"",\
+        #                     '{', '}', '[', ']', '@', '&']
         i = 0
         while(i < len(splittedText)):
             temp = splittedText[i]
             wordLength = len(temp)
             j, needSplit = 0, False
-            while(j < wordLength and temp[j] in specialChar):
+            while(j < wordLength and not temp[j].isalpha()):
                 j, needSplit = j + 1, True
             if(j < wordLength and needSplit):
                 del splittedText[i]
                 splittedText.insert(i, temp[0:j])
-                splittedText.insert(i + 1, temp[j:wordLength])
-                i += 2
+                splittedText.insert(i + 1, "<=>")
+                splittedText.insert(i + 2, temp[j:wordLength])
+                i += 3
             else:
                 i += 1
         return splittedText
     
     @staticmethod
-    def suffixSeparator(splittedText, specialChar=None):
-        if(specialChar is None):
-            specialChar = ['.', ',', '!', '?',')', '(', "'", "\"",\
-                            '{', '}', '[', ']', '@', '&']
+    def suffixSeparator(splittedText):
+        # if(specialChar is None):
+        #     specialChar = ['.', ',', '!', '?',')', '(', "'", "\"",\
+        #                     '{', '}', '[', ']', '@', '&']
         i = 0
         while(i < len(splittedText)):
             temp = splittedText[i]
             wordLength = len(temp)
             j, needSplit = wordLength - 1, False
-            while(j >= 0 and temp[j] in specialChar):
+            while(j >= 0 and not temp[j].isalpha()):
                 j, needSplit = j - 1, True
             if(j >= 0 and needSplit):
                 del splittedText[i]
                 splittedText.insert(i, temp[0:j + 1])
-                splittedText.insert(i + 1, temp[j + 1:wordLength])
-                i += 2
+                splittedText.insert(i + 1, "<=>")
+                splittedText.insert(i + 2, temp[j + 1:wordLength])
+                i += 3
             else:
                 i += 1
         return splittedText
+    
+    @staticmethod
+    def decode(text):
+        decodedText, i, textLength = "", 0, len(text)
+        while(i < textLength):
+            decodedText += text[i]
+            if i != textLength - 1 and text[i + 1] != "<=>":
+                decodedText += " "
+                i += 1
+            else:
+                i += 2
+        return decodedText
+
+    @staticmethod
+    def deleteEncoding(text):
+        return [word for word in text if word != "<=>"]
 
 class LibParser:
     class Entry:

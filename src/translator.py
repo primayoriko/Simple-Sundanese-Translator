@@ -15,7 +15,7 @@ class Translator:
         return self
 
     def getTranslation(self):
-        return " ".join(self.translation)
+        return inputParser.decode(self.translation)
 
     def translate(self, type, method="kmp"):
         if(method == "kmp"):
@@ -57,7 +57,7 @@ class Translator:
                 for word in temp:
                     self.translation.append(word)
         # print(self.translation)
-        return " ".join(self.translation)
+        return inputParser.decode(self.translation)
 
 if __name__=='__main__':
     t = Translator()
