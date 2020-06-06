@@ -81,7 +81,7 @@ Sunda : abdi henteu tiasa bahasa Sunda
 1. The Indentation in textarea (input/output text section) after translation would give *tab* before the translation, but the translation result should be correct.
 
 ## Documentation
-You can access how to use this program in (this youtube) [https://github.com/primayoriko/Simple-Sundanese-Translator] link.
+You can access how to use this program in [this youtube](https://youtu.be/w1B6P_B7_ZY) link.
 
 ## About ME
 Naufal Prima Yoriko, 13518146, Teknik Infomatika ITB '18
