@@ -37,7 +37,7 @@ For simplicity you can executing **start_env.bat** instead of step 2-3 to runnin
 
    with your web browser to run this web apps. 
 2. Choose the mode (indo to sunda / sunda to indo), the algorithm that should be used, input the text that want to be translated, and then click **Translate** button.
-3. The translation must appear after awhile.
+3. The translation must be appeared after awhile.
 4. Enjoy.
 
 ## Sample Input and Output of the Translation
@@ -78,7 +78,11 @@ Sunda : abdi henteu tiasa bahasa Sunda
 ```
 
 ## Known Bugs or Problems
-1. The Indentation in textarea (input/ output text section) after translation would give *tab* before the translation, but the translation result should be correct.
+1. The Indentation in textarea (input/output text section) after translation would give *tab* before the translation, but the translation result should be correct.
 
 ## Documentation
-You can access how to use this program in (this youtube)[] link.
+You can access how to use this program in (this youtube)[https://github.com/primayoriko/Simple-Sundanese-Translator] link.
+
+## About ME
+**NIM : 13518156**
+**Nama : Naufal Prima Yoriko**

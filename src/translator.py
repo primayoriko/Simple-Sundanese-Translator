@@ -17,7 +17,38 @@ class Translator:
     def getTranslation(self):
         return inputParser.decode(self.translation)
 
-    def translate(self, type, method="kmp"):
+    def isRemovedWord(self, lib, word, type, method):
+        matcher = MatcherBuilder.build(method).setPattern(word)
+        if(type == "sunda-indo"):
+            removedWords = lib.removedWordsSunda
+        else: # type == "indo-sunda"
+            removedWords = lib.removedWordsIndo
+            
+        for vocab in removedWords:
+            if(matcher.setText(vocab).match()):
+                return True
+        return False
+
+    def needPenegasanTeh(self, text, method):
+        possibleSubject = ["anjeun", "hidep", "maneh", "abdi", "kuring",\
+                            "urang", "uing", "aing", "manehna", "arenjeun", "maraneh"]
+        matcher = MatcherBuilder.build(method).setPattern(text)
+        for word in possibleSubject:
+            if matcher.setText(word).match():
+                return True
+        return False
+
+    def addPenegasanTeh(self, method):
+        i = 0
+        while i < len(self.translation) - 1:
+            if(self.needPenegasanTeh(self.translation[i], method)\
+                and self.translation[i + 1] != "<=>"):
+                self.translation.insert(i + 1, "teh")
+                i += 2
+            else:
+                i += 1
+
+    def translate(self, type, method="kmp", tehOpt=False):
         matcher = MatcherBuilder.build(method)
         if(type == "sunda-indo"):
             dictionary = self.libparser.vocabSunda
@@ -27,7 +58,7 @@ class Translator:
         i, dictLength = 0, len(dictionary)
         while(i < self.textLength):
             if(type == "sunda-indo" and \
-                self.libparser.isRemovedWord(self.text[i], type, method)):
+                self.isRemovedWord(self.libparser, self.text[i], type, method)):
                 i += 1
             else:
                 textToValidate, result = "", ""
@@ -50,8 +81,9 @@ class Translator:
                     i += k
                 for word in temp:
                     self.translation.append(word)
-        # if(type == "indo-sunda"):
-        #     for
+
+        if(type == "indo-sunda" and tehOpt):
+            self.addPenegasanTeh(method)
         return inputParser.decode(self.translation)
 
 if __name__=='__main__':

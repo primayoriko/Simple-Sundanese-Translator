@@ -20,4 +20,4 @@ def mainHandler():
         # print('getcwd:      ', os.getcwd())
         # print('__file__:    ', __file__)
         return render_template('main.html', initInput=text, result=\
-                translator.setText(text).translate(mode, method))
+                translator.setText(text).translate(mode, method, tehOpt=="yes"))
